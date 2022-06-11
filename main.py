@@ -5,7 +5,12 @@ class Mastermind():
         import AI
 
         running = True
+        agent = AI.Agent()
         random = 'ja'
+        wit = 0
+        zwart = 0
+        ronde = 0
+        antwoord = [0, 0]
 
         #random = str(input('Wilt u de getallen willekeurig laten genereren? '))
         if random == 'ja':
@@ -27,10 +32,12 @@ class Mastermind():
 
         while running == True:
 
-            geraad = pionnen.raden()
+            #geraad = pionnen.raden()
+            geraad = agent.gokken(ronde, wit, zwart, antwoord)
 
             wit = pionnen.aantalWit(geraad)
             zwart = pionnen.aantalZwart(geraad)
+            antwoord = zwart
             wit = zwart[1]
             zwart = zwart[0]
 

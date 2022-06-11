@@ -24,7 +24,7 @@ class pion():
         self.antwoord = [kleur1, kleur2, kleur3, kleur4]
 
     def willekeurigantwoord(self):
-        print('Een willekeurige kleurenset wordt gegenereerd.')
+        #print('Een willekeurige kleurenset wordt gegenereerd.')
 
         kleur1 = self.random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
         kleur2 = self.random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
@@ -37,7 +37,6 @@ class pion():
     def raden(self):
         print('De kleuren zijn: paars, oranje, geel, lichtgroen, blauw en rood.')
         raden = str(input('Welke kleuren wilt u raden? '))
-        #raden = 'l o g p'
         raden = raden.split()
         return raden
 
