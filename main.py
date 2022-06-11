@@ -1,5 +1,4 @@
 import os.path
-import neat
 import math
 
 def main():
@@ -47,33 +46,6 @@ def main():
             bord.tekenBord(geraad, wit, zwart)
             #print('Je hebt helaas niet de juiste kleurencombinatie geraden')
 
-def eval_genen(genomes, configuratie):
-    pass
-
-
-
-
-
-
-def run_neat(configuratie):
-    populatie = neat.Population(configuratie)
-    populatie.add_reporter(neat.StdOutReporter(True))
-    statistieken = neat.StatisticsReporter()
-    populatie.add_reporter(statistieken)
-    populatie.add_reporter(neat.Checkpointer(5))
-
-    winnaar = populatie.run(eval_genen, 50)
 
 if __name__ == '__main__':
-    lokale_dir = os.path.dirname(__file__)
-    configuratie_pad = os.path.join(lokale_dir, 'config.txt')
-
-    configuratie = neat.config.Config(
-        neat.DefaultGenome,
-        neat.DefaultReproduction,
-        neat.DefaultSpeciesSet,
-        neat.DefaultStagnation,
-        configuratie_pad
-    )
-
-    run_neat(configuratie)
+    main()
