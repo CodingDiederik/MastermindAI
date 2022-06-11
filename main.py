@@ -4,9 +4,11 @@ import math
 def main():
     import bord
     import Pionnen
+    import AI
 
     running = True
     random = 'ja'
+    Agent = AI.Agent()
 
     #random = str(input('Wilt u de getallen willekeurig laten genereren? '))
     if random == 'ja':
@@ -28,7 +30,8 @@ def main():
 
     while running == True:
 
-        geraad = pionnen.raden()
+        #geraad = pionnen.raden()
+        geraad = Agent.gok()
 
         wit = pionnen.aantalWit(geraad)
         zwart = pionnen.aantalZwart(geraad)
