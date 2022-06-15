@@ -1,45 +1,88 @@
 import random
 
-
-def aantalWit(raden, antwoord):
-    wit = 0
-    gebruikt1 = 0
-    gebruikt2 = 0
-    gebruikt3 = 0
-    gebruikt4 = 0
-
-    for i in range(0, 4):
-        if raden[i] == antwoord[0] and gebruikt1 == 0:
-            gebruikt1 += 1
-            wit += 1
-        elif raden[i] == antwoord[1] and gebruikt2 == 0:
-            gebruikt2 += 1
-            wit += 1
-        elif raden[i] == antwoord[2] and gebruikt3 == 0:
-            gebruikt3 += 1
-            wit += 1
-        elif raden[i] == antwoord[3] and gebruikt4 == 0:
-            gebruikt4 += 1
-            wit += 1
-
-    return wit
-
-
-def aantalZwart(raden, antwoord, wit):
+def pinnetjes(code, antwoord_spel, goki):
+    "Gaat langs elke code, als dit de code was, kreeg het dan dezelfde aantal pinnetjes wit en zwart als je dit zou verglijken met de eerdere gok?"
+    code = code.split()
     zwart = 0
-    for i in range(0, 4):
-        if raden[i] == antwoord[i]:
-            wit -= 1
-            zwart += 1
+    wit = 0
+    #print(code)
 
-    return zwart, wit
+    pin1 = 'niet gebruikt'
+    pin2 = 'niet gebruikt'
+    pin3 = 'niet gebruikt'
+    pin0 = 'niet gebruikt'
+
+    if goki[0] == code[0]:
+        pin0 = 'gebruikt'
+        zwart += 1
+    if goki[1] == code[1]:
+        pin1 = 'gebruikt'
+        zwart += 1
+    if goki[2] == code[2]:
+        pin2 = 'gebruikt'
+        zwart += 1
+    if goki[3] == code[3]:
+        pin3 = 'gebruikt'
+        zwart += 1
+
+    if goki[0] == code[1] and pin1 == 'niet gebruikt':
+        wit += 1
+        pin1 = 'gebruikt'
+    elif goki[0] == code[2] and pin2 == 'niet gebruikt':
+        wit += 1
+        pin2 = 'gebruikt'
+    elif goki[0] == code[3] and pin3 == 'niet gebruikt':
+        wit += 1
+        pin3 = 'gebruikt'
+
+    if goki[1] == code[0] and pin0 == 'niet gebruikt':
+        wit += 1
+        pin0 = 'gebruikt'
+    elif goki[1] == code[2] and pin2 == 'niet gebruikt':
+        wit += 1
+        pin2 = 'gebruikt'
+    elif goki[1] == code[3] and pin3 == 'niet gebruikt':
+        wit += 1
+        pin3 = 'gebruikt'
+
+    if goki[2] == code[1] and pin1 == 'niet gebruikt':
+        wit += 1
+        pin1 = 'gebruikt'
+    elif goki[2] == code[0] and pin0 == 'niet gebruikt':
+        wit += 1
+        pin0 = 'gebruikt'
+    elif goki[2] == code[3] and pin3 == 'niet gebruikt':
+        wit += 1
+        pin3 = 'gebruikt'
+
+    if goki[3] == code[1] and pin1 == 'niet gebruikt':
+        wit += 1
+        pin1 = 'gebruikt'
+    elif goki[3] == code[0] and pin0 == 'niet gebruikt':
+        wit += 1
+        pin0 = 'gebruikt'
+    elif goki[3] == code[2] and pin2 == 'niet gebruikt':
+        wit += 1
+        pin2 = 'gebruikt'
+
+    #print('wit: ', wit)
+    #print('zwart: ', zwart)
+
+    if zwart == antwoord_spel[0]:
+        if wit == antwoord_spel[1]:
+            return True
+        else:
+            return False
+    else:
+        return False
 
 
-def witenzwart(gok, wit, zwart, antwoord):
-    zwart = aantalZwart(gok, antwoord, aantalWit(gok, antwoord))
-    wit = zwart[1]
-    zwart = zwart[0]
-    return zwart, wit
+def scoreberekenen(code, mogelijkheden):
+    "Berekent een score voor elke code hoeveel hij minimaal elimineert, de hoogste wordt geraden. (Als ze evenhoog zijn, dan willekeurig eentje daarvan pakken."
+    # Mogelijke antwoorden die we terugkrijgen van een code
+    worstcase = 0
+
+    return len(mogelijkheden) - worstcase # Score = huidige aantal - worst case scenerio die overblijft
 
 
 class Agent():
@@ -47,29 +90,74 @@ class Agent():
         import itertools
 
         mogelijkheden = ['o', 'p', 'g', 'l', 'b', 'r']
-        self.mogelijkheden = [''.join(i) for i in itertools.product(mogelijkheden, repeat = 4)]
+        self.mogelijkheden = [' '.join(i) for i in itertools.product(mogelijkheden, repeat = 4)]
+        print('Totaal aantal mogelijkheden: ', len(self.mogelijkheden))
         #print(self.mogelijkheden)
 
         kleur1 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
         kleur2 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
+        while kleur1 == kleur2:
+            kleur1 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
         self.kleur1 = kleur1
         self.kleur2 = kleur2
-        self.gok1 = [kleur1, kleur1, kleur2, kleur2]
+        self.goki = [kleur1, kleur1, kleur2, kleur2]
 
 
-    def gokken(self, ronde, wit, zwart, antwoord): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
+    def gokken(self, ronde, antwoord_speler): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
+        #antwoord_speler: [zwart, wit]
+
+        remove = self.goki[0] + ' ' +self.goki[1] + ' ' + self.goki[2] + ' ' + self.goki[3]
+
         if ronde == 0:
-            return self.gok1
+
+            return self.goki
         else:
-            kan = []
-            for i in S:
-                if witenzwart(gok, wit, zwart, antwoord) == [zwart, wit]:
-                    kan.append(i)
-            self.mogelijkheden == kan
-            if len(self.mogelijkheden == 1):
-                print('Het antwoord is: ', self.mogelijkheden[0])
-            else:
-                print('Er zijn nog', len(self.mogelijkheden, 'mogelijkheden over.'))
+            ok = False
+            kopie = ''
+            zoeken = 0
 
-                #TODO: Van de opties die kunnen, de beste selecteren
+            self.mogelijkheden.remove(remove)
 
+            niet_mogelijk = []
+            import time
+            for i in range(len(self.mogelijkheden)):
+                code = self.mogelijkheden[i]
+                #print(code)
+
+                pinnen = pinnetjes(code, antwoord_speler, self.goki)
+
+                if pinnen == False:
+                    #print('niet mogelijk')
+                    niet_mogelijk.append(self.mogelijkheden[i])
+
+
+            for i in range (len(niet_mogelijk)):
+                self.mogelijkheden.remove(niet_mogelijk[i])
+
+            ok = False
+            kopie = ''
+
+            #while not ok and zoeken == 0:
+            #    for i in range(0, len(self.mogelijkheden)):
+            #        kopie = (self.mogelijkheden[i])
+            #        if kopie == 'g r g r':
+            #            ok = True
+            #            print('Antwoord nog mogelijk')
+            #    if ok == False:
+            #        zoeken += 1
+            #if zoeken == 1:
+            #    exit(print('Niet meer in mogelijkheden na'))
+            #
+            #print('nog in mogelijkheden')
+
+            print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.\n')
+
+            #TODO: Van de opties die kunnen, de beste selecteren (MiniMax algoritme)
+
+            #print(self.mogelijkheden)
+
+            gok = self.mogelijkheden[0]
+
+            self.goki = gok.split() # Hetgeen wat geraden gaat worden
+
+            return self.goki

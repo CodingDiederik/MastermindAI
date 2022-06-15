@@ -23,6 +23,9 @@ class pion():
         #kleur4 = 'o'
         self.antwoord = [kleur1, kleur2, kleur3, kleur4]
 
+    def getantwoord(self):
+        return self.antwoord
+
     def willekeurigantwoord(self):
         #print('Een willekeurige kleurenset wordt gegenereerd.')
 
@@ -40,34 +43,66 @@ class pion():
         raden = raden.split()
         return raden
 
-    def aantalWit(self, raden):
-        self.wit = 0
-        self.gebruikt1 = 0
-        self.gebruikt2 = 0
-        self.gebruikt3 = 0
-        self.gebruikt4 = 0
+    def witenzwart(self, geraad):
+        wit = 0
+        zwart = 0
+        pin1 = 'niet gebruikt'
+        pin2 = 'niet gebruikt'
+        pin3 = 'niet gebruikt'
+        pin0 = 'niet gebruikt'
+        code = self.antwoord
 
-        for i in range(0, 4):
-            if raden[i] == self.antwoord[0] and self.gebruikt1 == 0:
-                self.gebruikt1 += 1
-                self.wit += 1
-            elif raden[i] == self.antwoord[1] and self.gebruikt2 == 0:
-                self.gebruikt2 += 1
-                self.wit += 1
-            elif raden[i] == self.antwoord[2] and self.gebruikt3 == 0:
-                self.gebruikt3 += 1
-                self.wit += 1
-            elif raden[i] == self.antwoord[3] and self.gebruikt4 == 0:
-                self.gebruikt4 += 1
-                self.wit += 1
+        if geraad[0] == code[0]:
+            pin0 = 'gebruikt'
+            zwart += 1
+        if geraad[1] == code[1]:
+            pin1 = 'gebruikt'
+            zwart += 1
+        if geraad[2] == code[2]:
+            pin2 = 'gebruikt'
+            zwart += 1
+        if geraad[3] == code[3]:
+            pin3 = 'gebruikt'
+            zwart += 1
 
-        return self.wit
+        if geraad[0] == code[1] and pin1 == 'niet gebruikt':
+            wit += 1
+            pin1 = 'gebruikt'
+        elif geraad[0] == code[2] and pin2 == 'niet gebruikt':
+            wit += 1
+            pin2 = 'gebruikt'
+        elif geraad[0] == code[3] and pin3 == 'niet gebruikt':
+            wit += 1
+            pin3 = 'gebruikt'
 
-    def aantalZwart(self, raden):
-        self.zwart = 0
-        for i in range(0,4):
-            if raden[i] == self.antwoord[i]:
-                self.wit -= 1
-                self.zwart += 1
+        if geraad[1] == code[0] and pin0 == 'niet gebruikt':
+            wit += 1
+            pin0 = 'gebruikt'
+        elif geraad[1] == code[2] and pin2 == 'niet gebruikt':
+            wit += 1
+            pin2 = 'gebruikt'
+        elif geraad[1] == code[3] and pin3 == 'niet gebruikt':
+            wit += 1
+            pin3 = 'gebruikt'
 
-        return self.zwart, self.wit
+        if geraad[2] == code[1] and pin1 == 'niet gebruikt':
+            wit += 1
+            pin1 = 'gebruikt'
+        elif geraad[2] == code[0] and pin0 == 'niet gebruikt':
+            wit += 1
+            pin0 = 'gebruikt'
+        elif geraad[2] == code[3] and pin3 == 'niet gebruikt':
+            wit += 1
+            pin3 = 'gebruikt'
+
+        if geraad[3] == code[1] and pin1 == 'niet gebruikt':
+            wit += 1
+            pin1 = 'gebruikt'
+        elif geraad[3] == code[0] and pin0 == 'niet gebruikt':
+            wit += 1
+            pin0 = 'gebruikt'
+        elif geraad[3] == code[2] and pin2 == 'niet gebruikt':
+            wit += 1
+            pin2 = 'gebruikt'
+
+        return zwart, wit

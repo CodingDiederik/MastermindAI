@@ -7,10 +7,8 @@ class Mastermind():
         running = True
         agent = AI.Agent()
         random = 'ja'
-        wit = 0
-        zwart = 0
+        antwoord_speler = [0, 0]
         ronde = 0
-        antwoord = [0, 0]
 
         #random = str(input('Wilt u de getallen willekeurig laten genereren? '))
         if random == 'ja':
@@ -25,6 +23,7 @@ class Mastermind():
             pionnen.antwoord()
         else:
             pionnen.willekeurigantwoord()
+            #pionnen.debugantwoord()
 
         #print('Instructie voor het raden: Er zijn 6 kleuren aanwezig: paars, oranje, geel, lichtgroen, blauw en rood.')
         #print('Je raadt in één keer alle kleuren, dit doe je door de eerste letter van de kleur te noteren.')
@@ -33,18 +32,18 @@ class Mastermind():
         while running == True:
 
             #geraad = pionnen.raden()
-            geraad = agent.gokken(ronde, wit, zwart, antwoord)
+            geraad = agent.gokken(ronde, antwoord_speler)
+            print('Antwoord is: ', pionnen.getantwoord())
 
-            wit = pionnen.aantalWit(geraad)
-            zwart = pionnen.aantalZwart(geraad)
-            antwoord = zwart
-            wit = zwart[1]
-            zwart = zwart[0]
+            zwartenwit = pionnen.witenzwart(geraad)
+            antwoord_speler = zwartenwit
+            wit = zwartenwit[1]
+            zwart = zwartenwit[0]
 
             ronde = bord.tekenBord(geraad, wit, zwart)
 
             if zwart == 4:
-                #print('Je hebt de juiste kleurencombinatie geraden!')
+                print('Ik heb de juiste kleurencombinatie geraden!')
                 beloning = 10
                 running = False
 
@@ -52,6 +51,6 @@ class Mastermind():
                 running = False
                 beloning = -10
                 bord.tekenBord(geraad, wit, zwart)
-                #print('Je hebt helaas niet de juiste kleurencombinatie geraden')
+                print('Je hebt helaas niet de juiste kleurencombinatie geraden')
 
 Mastermind.spel()
