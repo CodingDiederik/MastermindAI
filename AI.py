@@ -81,8 +81,24 @@ def scoreberekenen(code, mogelijkheden):
     "Berekent een score voor elke code hoeveel hij minimaal elimineert, de hoogste wordt geraden. (Als ze evenhoog zijn, dan willekeurig eentje daarvan pakken."
     # Mogelijke antwoorden die we terugkrijgen van een code
     worstcase = 0
+    wit = 0
+    zwart = 0
+    score = False
+    eindscore = 0
 
-    return len(mogelijkheden) - worstcase # Score = huidige aantal - worst case scenerio die overblijft
+    for wit in range(1, 4):
+        for zwart in range(1, 4):
+            if zwart + wit > 4:
+                pass
+            else:
+                antwoord = [zwart, wit]
+                for i in range(len(mogelijkheden)):
+                    score = pinnetjes(code, antwoord, mogelijkheden[i])
+                    if score == True:
+                        eindscore += 1
+                        score = False
+
+    return eindscore
 
 
 class Agent():
@@ -92,7 +108,6 @@ class Agent():
         mogelijkheden = ['o', 'p', 'g', 'l', 'b', 'r']
         self.mogelijkheden = [' '.join(i) for i in itertools.product(mogelijkheden, repeat = 4)]
         print('Totaal aantal mogelijkheden: ', len(self.mogelijkheden))
-        #print(self.mogelijkheden)
 
         kleur1 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
         kleur2 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
@@ -104,7 +119,6 @@ class Agent():
 
 
     def gokken(self, ronde, antwoord_speler): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
-        #antwoord_speler: [zwart, wit]
 
         remove = self.goki[0] + ' ' +self.goki[1] + ' ' + self.goki[2] + ' ' + self.goki[3]
 
@@ -137,27 +151,28 @@ class Agent():
             ok = False
             kopie = ''
 
-            #while not ok and zoeken == 0:
-            #    for i in range(0, len(self.mogelijkheden)):
-            #        kopie = (self.mogelijkheden[i])
-            #        if kopie == 'g r g r':
-            #            ok = True
-            #            print('Antwoord nog mogelijk')
-            #    if ok == False:
-            #        zoeken += 1
-            #if zoeken == 1:
-            #    exit(print('Niet meer in mogelijkheden na'))
-            #
-            #print('nog in mogelijkheden')
+            if len(self.mogelijkheden) == 1:
+                gok = self.mogelijkheden[0]
+                self.goki = gok.split()
+                return self.goki
 
-            print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.\n')
+            elif len(self.mogelijkheden) == 2:
+                gok = self.mogelijkheden[0]
+                self.goki = gok.split()
+                return self.goki
 
-            #TODO: Van de opties die kunnen, de beste selecteren (MiniMax algoritme)
+            else:
+                print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.\n')
 
-            #print(self.mogelijkheden)
+                score_lijst = []
+                for i in range(len(self.mogelijkheden)):
+                    mogelijkheid  = self.mogelijkheden[i]
+                    score_lijst.append(scoreberekenen(mogelijkheid, self.mogelijkheden))
 
-            gok = self.mogelijkheden[0]
+                print(score_lijst)
+                max_waarde = max(score_lijst)
+                max_index = score_lijst.index(max_waarde)
 
-            self.goki = gok.split() # Hetgeen wat geraden gaat worden
-
-            return self.goki
+                self.goki = self.mogelijkheden[max_index]
+                self.goki = self.goki.split() # Hetgeen wat geraden gaat worden
+                return self.goki

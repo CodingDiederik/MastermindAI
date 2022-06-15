@@ -23,7 +23,6 @@ class Mastermind():
             pionnen.antwoord()
         else:
             pionnen.willekeurigantwoord()
-            #pionnen.debugantwoord()
 
         #print('Instructie voor het raden: Er zijn 6 kleuren aanwezig: paars, oranje, geel, lichtgroen, blauw en rood.')
         #print('Je raadt in één keer alle kleuren, dit doe je door de eerste letter van de kleur te noteren.')
