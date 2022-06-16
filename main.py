@@ -44,7 +44,7 @@ class Mastermind():
 
             if zwart == 4:
                 gewonnen += 1
-                print('Ik heb de juiste kleurencombinatie geraden!\n')
+                print('Ik heb de juiste kleurencombinatie geraden in', ronde + 1, 'stappen\n')
                 running = False
 
             if ronde == 11 and running == True:
