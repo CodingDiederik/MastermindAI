@@ -6,11 +6,11 @@ class Mastermind():
 
         running = True
         agent = AI.Agent()
-        random = 'ja'
+        #random = 'ja'
         antwoord_speler = [0, 0]
         ronde = 0
 
-        #random = str(input('Wilt u de getallen willekeurig laten genereren? '))
+        random = str(input('Wilt u de getallen willekeurig laten genereren? '))
         if random == 'ja':
             random = True
         else:
