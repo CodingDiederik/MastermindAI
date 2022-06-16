@@ -1,6 +1,6 @@
 class Mastermind():
     def spel():
-        global gewonnen, verloren, pogingen
+        global gewonnen, verloren, pogingen, hoeveelheid
         import bord
         import Pionnen
         import AI
@@ -32,7 +32,7 @@ class Mastermind():
         while running == True:
 
             #geraad = pionnen.raden()
-            geraad = agent.gokken(ronde, antwoord_speler)
+            geraad = agent.gokken(ronde, antwoord_speler, pogingen, hoeveelheid)
             print('Antwoord is: ', pionnen.getantwoord())
 
             zwartenwit = pionnen.witenzwart(geraad)
@@ -44,14 +44,14 @@ class Mastermind():
 
             if zwart == 4:
                 gewonnen += 1
-                print('Ik heb de juiste kleurencombinatie geraden in', ronde + 1, 'stappen\n')
+                print('Ik heb de juiste kleurencombinatie geraden in', ronde + 1, 'stappen')
                 running = False
 
             if ronde == 11 and running == True:
                 verloren += 1
                 running = False
                 bord.tekenBord(geraad, wit, zwart)
-                #print('Je hebt helaas niet de juiste kleurencombinatie geraden')
+                print('Ik heb helaas na 12 rondes niet de juiste kleurcombinatie kunnen raden.')
         pogingen.append(ronde + 1)
 
 import time
@@ -59,12 +59,17 @@ import time
 gewonnen = 0
 verloren = 0
 pogingen = []
+
 start = time.time()
+
 hoeveelheid = int(input('Hoe vaak wilt u de computer een willekeurige code laten raden? '))
+
 for i in range(0, hoeveelheid):
+    print('\n-------------------------------------------')
+    print('Spel', i + 1)
     Mastermind.spel()
 eind = time.time()
 
 print('\nDe computer heeft', gewonnen, 'gewonnen en', verloren, 'keer verloren.')
-print('De computer deed gemiddeld', sum(pogingen) / len(pogingen), 'aantal pogingen over het gokken van een code.')
-print('Dit alles is voltooid in', round(eind-start), 'seconden.')
+print('De computer deed gemiddeld', round(sum(pogingen) / len(pogingen), 1), 'aantal pogingen over het gokken van een code.')
+print('Dit alles is voltooid in', round(eind-start, 1), 'seconden.')

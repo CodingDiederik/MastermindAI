@@ -123,7 +123,7 @@ class Agent():
         self.goki = [kleur1, kleur1, kleur2, kleur2]
 
 
-    def gokken(self, ronde, antwoord_speler): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
+    def gokken(self, ronde, antwoord_speler, pogingen, hoeveelheid): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
         remove = self.goki[0] + ' ' +self.goki[1] + ' ' + self.goki[2] + ' ' + self.goki[3]
 
@@ -170,6 +170,7 @@ class Agent():
 
             else:
                 print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.')
+                print('Op', round(len(pogingen) / hoeveelheid * 100, 1), 'procent\n')
 
                 score_lijst = []
                 for i in range(len(self.mogelijkheden)):
