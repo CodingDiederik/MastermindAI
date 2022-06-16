@@ -85,20 +85,25 @@ def scoreberekenen(code, mogelijkheden):
     zwart = 0
     score = False
     eindscore = 0
+    scores = []
 
-    for wit in range(1, 4):
-        for zwart in range(1, 4):
+    for wit in range(0, 4):
+        for zwart in range(0, 4):
             if zwart + wit > 4:
                 pass
             else:
                 antwoord = [zwart, wit]
                 for i in range(len(mogelijkheden)):
+                    i -= 1
                     score = pinnetjes(code, antwoord, mogelijkheden[i])
                     if score == True:
-                        eindscore += 1
+                        eindscore+= 1
                         score = False
+                scores.append(eindscore)
 
-    return eindscore
+    return min(scores)
+
+
 
 
 class Agent():
@@ -152,24 +157,26 @@ class Agent():
             kopie = ''
 
             if len(self.mogelijkheden) == 1:
+                print('Er is nog 1 mogelijkheid over.')
                 gok = self.mogelijkheden[0]
                 self.goki = gok.split()
                 return self.goki
 
             elif len(self.mogelijkheden) == 2:
+                print('Er zijn nog 2 mogelijkheden over.')
                 gok = self.mogelijkheden[0]
                 self.goki = gok.split()
                 return self.goki
 
             else:
-                print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.\n')
+                print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.')
 
                 score_lijst = []
                 for i in range(len(self.mogelijkheden)):
                     mogelijkheid  = self.mogelijkheden[i]
                     score_lijst.append(scoreberekenen(mogelijkheid, self.mogelijkheden))
 
-                print(score_lijst)
+                #print(score_lijst)
                 max_waarde = max(score_lijst)
                 max_index = score_lijst.index(max_waarde)
 

@@ -1,16 +1,17 @@
 class Mastermind():
     def spel():
+        global gewonnen, verloren, pogingen
         import bord
         import Pionnen
         import AI
 
         running = True
         agent = AI.Agent()
-        #random = 'ja'
+        random = 'ja'
         antwoord_speler = [0, 0]
         ronde = 0
 
-        random = str(input('Wilt u de getallen willekeurig laten genereren? '))
+        #random = str(input('Wilt u de getallen willekeurig laten genereren? '))
         if random == 'ja':
             random = True
         else:
@@ -42,14 +43,28 @@ class Mastermind():
             ronde = bord.tekenBord(geraad, wit, zwart)
 
             if zwart == 4:
-                print('Ik heb de juiste kleurencombinatie geraden!')
-                beloning = 10
+                gewonnen += 1
+                print('Ik heb de juiste kleurencombinatie geraden!\n')
                 running = False
 
             if ronde == 11 and running == True:
+                verloren += 1
                 running = False
-                beloning = -10
                 bord.tekenBord(geraad, wit, zwart)
-                print('Je hebt helaas niet de juiste kleurencombinatie geraden')
+                #print('Je hebt helaas niet de juiste kleurencombinatie geraden')
+        pogingen.append(ronde + 1)
 
-Mastermind.spel()
+import time
+
+gewonnen = 0
+verloren = 0
+pogingen = []
+start = time.time()
+hoeveelheid = int(input('Hoe vaak wilt u de computer een willekeurige code laten raden? '))
+for i in range(0, hoeveelheid):
+    Mastermind.spel()
+eind = time.time()
+
+print('\nDe computer heeft', gewonnen, 'gewonnen en', verloren, 'keer verloren.')
+print('De computer deed gemiddeld', sum(pogingen) / len(pogingen), 'aantal pogingen over het gokken van een code.')
+print('Dit alles is voltooid in', round(eind-start), 'seconden.')
