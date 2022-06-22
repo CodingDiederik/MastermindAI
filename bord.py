@@ -1,5 +1,5 @@
 class Bord():
-    def __init__(self):
+    def __init__(self): # startwaarden
         self.ronde = 0
 
         self.r1k1 = '_'
@@ -73,7 +73,7 @@ class Bord():
         self.r11z = 0
 
     def tekenBord(self, invoer, wit, zwart):
-        if self.ronde == 0:
+        if self.ronde == 0: # kijkt bij ronde en verandert het bord daardoor
             self.r0k1 = invoer[0]
             self.r0k2 = invoer[1]
             self.r0k3 = invoer[2]
@@ -157,7 +157,7 @@ class Bord():
             self.r11k4 = invoer[3]
             self.r11w = wit
             self.r11z = zwart
-
+        # het tekenen van het bord
         print('\n-------------------------------------------')
         print('|', self.r11w, 'W', self.r11z, 'Z|    ', self.r11k1, '    ', self.r11k2, '    ', self.r11k3, '    ', self.r11k4, '    |')
         print('-------------------------------------------')
@@ -185,4 +185,4 @@ class Bord():
         print('-------------------------------------------\n')
 
         self.ronde += 1
-        return self.ronde
+        return self.ronde # geeft de ronde

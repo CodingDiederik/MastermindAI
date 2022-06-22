@@ -3,12 +3,6 @@ class pion():
     def __init__ (self):
         import random
         self.random = random
-        self.paars = 'paars'
-        self.oranje = 'oranje'
-        self.roze = 'geel'
-        self.groen = 'lichtgroen'
-        self.blauw = 'blauw'
-        self.rood = 'rood'
 
     def antwoord(self):
         print('De kleuren zijn: paars, oranje, geel, lichtgroen, blauw en rood')
@@ -23,10 +17,10 @@ class pion():
         #kleur4 = 'o'
         self.antwoord = [kleur1, kleur2, kleur3, kleur4]
 
-    def getantwoord(self):
+    def getantwoord(self): # geeft het antwoord
         return self.antwoord
 
-    def willekeurigantwoord(self):
+    def willekeurigantwoord(self): # willekeurig antwoord genereren
         #print('Een willekeurige kleurenset wordt gegenereerd.')
 
         kleur1 = self.random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
@@ -37,13 +31,13 @@ class pion():
         self.antwoord = [kleur1, kleur2, kleur3, kleur4]
         #print(self.antwoord)
 
-    def raden(self):
+    def raden(self): # zelf raden
         print('De kleuren zijn: paars, oranje, geel, lichtgroen, blauw en rood.')
         raden = str(input('Welke kleuren wilt u raden? '))
         raden = raden.split()
         return raden
 
-    def witenzwart(self, geraad):
+    def witenzwart(self, geraad): # bereken van wit en zwart
         wit = 0
         zwart = 0
         pin1 = 'niet gebruikt'
