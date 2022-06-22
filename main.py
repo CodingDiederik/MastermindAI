@@ -53,23 +53,28 @@ class Mastermind():
                 bord.tekenBord(geraad, wit, zwart)
                 print('Ik heb helaas na 12 rondes niet de juiste kleurcombinatie kunnen raden.')
         pogingen.append(ronde + 1)
+def main():
+    global gewonnen, verloren, pogingen, hoeveelheid
+    import time
 
-import time
+    gewonnen = 0
+    verloren = 0
+    pogingen = []
 
-gewonnen = 0
-verloren = 0
-pogingen = []
+    start = time.time()
 
-start = time.time()
+    hoeveelheid = int(input('Hoe vaak wilt u de computer een willekeurige code laten raden? '))
 
-hoeveelheid = int(input('Hoe vaak wilt u de computer een willekeurige code laten raden? '))
+    for i in range(0, hoeveelheid):
+        print('\n-------------------------------------------')
+        print('Spel', i + 1)
+        Mastermind.spel()
+    eind = time.time()
 
-for i in range(0, hoeveelheid):
-    print('\n-------------------------------------------')
-    print('Spel', i + 1)
-    Mastermind.spel()
-eind = time.time()
+    print('\nDe computer heeft', gewonnen, 'keer gewonnen en', verloren, 'keer verloren.')
+    print('De computer deed gemiddeld', round(sum(pogingen) / len(pogingen), 1), 'aantal pogingen over het gokken van een code.')
+    print('De computer deed er', round(eind-start, 1), 'seconden over.')
 
-print('\nDe computer heeft', gewonnen, 'gewonnen en', verloren, 'keer verloren.')
-print('De computer deed gemiddeld', round(sum(pogingen) / len(pogingen), 1), 'aantal pogingen over het gokken van een code.')
-print('Dit alles is voltooid in', round(eind-start, 1), 'seconden.')
+
+if __name__ == '__main__':
+    main()
