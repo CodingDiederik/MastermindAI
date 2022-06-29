@@ -158,7 +158,7 @@ class Agent(): # computer
 
             else:
                 print('Er zijn nog', len(self.mogelijkheden), 'mogelijkheden over.')
-                print('Op', round(len(pogingen) / hoeveelheid * 100, 1), 'procent\n')
+                print('Op', round(len(pogingen) / hoeveelheid2 * 100, 1), 'procent\n')
 
                 score_lijst = []
                 for i in range(len(self.mogelijkheden)):

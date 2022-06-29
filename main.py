@@ -101,9 +101,9 @@ def main():
 
     eerstegok = bestegok
 
-    hoeveelheid = int(input('Hoe vaak wilt u de computer een code laten raden?'))
+    hoeveelheid2 = int(input('Hoe vaak wilt u de computer een code laten raden?'))
     start = time.time()
-    for i in range(0, hoeveelheid):
+    for i in range(0, hoeveelheid2):
         print('\n-------------------------------------------')
         print('Spel', i + 1)
         Mastermind.spel()
