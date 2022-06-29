@@ -72,6 +72,10 @@ class Bord():
         self.r11w = 0
         self.r11z = 0
 
+    def get1gok(self):
+        self.goki = [self.r0k1, self.r0k2, self.r0k3, self.r0k4]
+        return self.goki
+
     def tekenBord(self, invoer, wit, zwart):
         if self.ronde == 0: # kijkt bij ronde en verandert het bord daardoor
             self.r0k1 = invoer[0]

@@ -107,21 +107,14 @@ def scoreberekenen(code, mogelijkheden):
 
 
 class Agent(): # computer
-    def __init__(self):
+    def __init__(self, eerstegok):
         import itertools
 
         mogelijkheden = ['o', 'p', 'g', 'l', 'b', 'r']
         self.mogelijkheden = [' '.join(i) for i in itertools.product(mogelijkheden, repeat = 4)]
         print('Totaal aantal mogelijkheden: ', len(self.mogelijkheden)) # alle mogelijkheden aanmaken
 
-        kleur1 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
-        kleur2 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
-        while kleur1 == kleur2:
-            kleur1 = random.choice(['o', 'p', 'g', 'l', 'b', 'r'])
-        self.kleur1 = kleur1
-        self.kleur2 = kleur2
-        self.goki = [kleur1, kleur1, kleur2, kleur2] # willekeurige gok, 2 van dezelfde kleuren
-
+        self.goki = eerstegok # willekeurige gok, 2 van dezelfde kleuren
 
     def gokken(self, ronde, antwoord_speler, pogingen, hoeveelheid): # Gebruik van Donald Knuth's algoritme: https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
