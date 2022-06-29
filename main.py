@@ -66,6 +66,7 @@ def main():
     pogingen = []
 
     mogelijkheden = ['o', 'p', 'g', 'l', 'b', 'r']
+    print('De kleuren zijn: paars, oranje, geel, lichtgroen, blauw en rood.')
 
     kleur1 = random.choice(mogelijkheden)
     kleur2 = random.choice(mogelijkheden)
@@ -93,19 +94,25 @@ def main():
 
     eind = time.time() # tijd van het einde
 
-    print('\nDe computer heeft', gewonnen, 'keer gewonnen en', verloren, 'keer verloren.') # informatie weergeven
-    print('De computer deed gemiddeld', round(sum(pogingen) / len(pogingen), 1), 'aantal pogingen over het gokken van een code.')
-    print('De computer deed er', round(eind-start, 1), 'seconden over.')
+
     print('De best code is ', bestegok)
+    print('De computer deed er', round(eind - start, 1), 'seconden over.')
     print('Bij deze gok deed hij er ', highscore, ' zetten over.')
 
     eerstegok = bestegok
 
     hoeveelheid = int(input('Hoe vaak wilt u de computer een code laten raden?'))
+    start = time.time()
     for i in range(0, hoeveelheid):
         print('\n-------------------------------------------')
         print('Spel', i + 1)
         Mastermind.spel()
+
+    eind = time.time()
+
+    print('\nDe computer heeft', gewonnen, 'keer gewonnen en', verloren, 'keer verloren.')  # informatie weergeven
+    print('De computer deed er', round(eind - start, 1), 'seconden over.')
+    print('De computer deed gemiddeld', round(sum(pogingen) / len(pogingen), 1), 'aantal pogingen over het gokken van een code.')
 
 if __name__ == '__main__': # hoofdscript
     main()
